@@ -1,29 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
-import { Button } from 'antd';
+import Header from './MyComponent/header';
+import {Todos} from './MyComponent/todos';
+import {footer as Footer} from './MyComponent/footer';
+import React, {useState} from 'react';
 
 function App() {
+  const onDelete =(todo) => {
+    console.log('onDelete called with todo', todo);
+    setTodos(todos.filter((e)=> {
+      return e!== todo
+    }))
+  }
+  const [todos, setTodos] = useState([
+    {
+      sno: 1,
+      title: 'Go to the Market',
+      desc: 'To buy some vegetables from the Market'
+    },
+    {
+      sno:2,
+      title: 'Go to the Mall',
+      desc: 'Need to so some job done'
+    },
+    {
+      sno:3,
+      title: 'Go to the temple',
+      desc: 'No need for description'
+    }
+  ]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <div>
-          Hello World
-        </div>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Button type="primary">Button</Button>
-      </header>
-    </div>
+    <>
+    <Header title="My New Todo List"></Header>
+     <Todos todo={todos} onDelete={onDelete}></Todos>
+    <Footer></Footer>
+    </>
   );
 }
 
