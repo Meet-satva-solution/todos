@@ -1,7 +1,6 @@
 import React from "react";
 import { TodoItem } from "./todoItem";
-import { Breadcrumb, Layout, theme, Card, Space, Button } from "antd";
-import { DeleteOutlined } from '@ant-design/icons';
+import { Breadcrumb, Layout, theme, Card, Space, Empty } from "antd";
 
 const { Content } = Layout;
 
@@ -30,23 +29,20 @@ export const Todos = (props) => {
           padding: 24,
           minHeight: 380,
           background: colorBgContainer,
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        {/* <Container>
-          <h3>Todo List</h3>
-          <TodoItem todo={props.todo[0]} />
-        </Container> */}
-        
         <Space direction="vertical" size={16}>
-          <Card
-            title="Todo List"
-            style={{ width: 300 }}
-          >
-            {props.todo.map((todo) => {
-               return <TodoItem todo={todo} onDelete={props.onDelete} />
-            })}
-            
+          <Card title="Todo List" style={{ width: 300 }}>
+            <div style={{ overflow: "auto", maxHeight: 300 }}>
+              {props.todo.length === 0 ? (
+                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              ) : (
+                props.todo.map((todo) => {
+                  return <TodoItem todo={todo} onDelete={props.onDelete} />;
+                })
+              )}
+            </div>
           </Card>
         </Space>
       </div>
